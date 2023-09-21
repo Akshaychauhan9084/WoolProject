@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:project_sih/screens/warehouse.dart';
+import 'package:project_sih/screens/woolprocessingpage.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../news/breaking_news_card.dart';
 import '../news/news_model.dart';
+import 'marketplacepage.dart';
 
 class HomePageAll extends StatefulWidget {
   @override
@@ -76,19 +79,31 @@ class _HomePageAllState extends State<HomePageAll> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildCircleAvatar(
-                    'Wool Processing',
-         
-         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aeAIm-QENnA-IbVwLESVV412uGoMsmr68currsUI22Xq5kvVH_J-AZpdVxLuldJkO5s&usqp=CAU',                ),
-                  SizedBox(width: 16), // Add spacing between avatars
-                  _buildCircleAvatar(
-                    'Warehouse',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT47htm5UFWoj_jx1WuJ5E_vnrCYxHMfi1gpTQaWbhiJsgmEzpjvgpgvhDu_dW_fgSkEMM&usqp=CAU', // Image asset path
-                  ),
-                  SizedBox(width: 16), // Add spacing between avatars
-                  _buildCircleAvatar(
-                    'Marketplace',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-1IAGtjc9wJPgBQkUpOPzNdAAmmFewowbmg&usqp=CAU', // Image asset path
-                  ),
+                  'Wool Processing',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aeAIm-QENnA-IbVwLESVV412uGoMsmr68currsUI22Xq5kvVH_J-AZpdVxLuldJkO5s&usqp=CAU', // Image asset path
+                  () {
+                // Navigate to the WarehousePage
+                Navigator.push(context, MaterialPageRoute(builder: (_) => WoolProcessingPage()));
+              },
+                ),
+                SizedBox(width: 16), // Add spacing between avatars
+                _buildCircleAvatar(
+                  'Warehouse',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT47htm5UFWoj_jx1WuJ5E_vnrCYxHMfi1gpTQaWbhiJsgmEzpjvgpgvhDu_dW_fgSkEMM&usqp=CAU', // Image asset path
+                  () {
+                // Navigate to the WoolProcessingPage
+                Navigator.push(context, MaterialPageRoute(builder: (_) => WarehousePage()));
+              },
+                ),
+                SizedBox(width: 16), // Add spacing between avatars
+                _buildCircleAvatar(
+                  'Marketplace',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-1IAGtjc9wJPgBQkUpOPzNdAAmmFewowbmg&usqp=CAU', // Image asset path
+                  () {
+                // Navigate to the MarketplacePage
+                Navigator.push(context, MaterialPageRoute(builder: (_) => Marketplace()));
+              },
+                ),
                 ],
               ),
              SizedBox(height: 40,),
@@ -125,22 +140,27 @@ class _HomePageAllState extends State<HomePageAll> {
     );
   }
 
-  Widget _buildCircleAvatar(String label, String imagePath) {
-    return Column(
-      children: [
-        CircleAvatar(
+ 
+ Widget _buildCircleAvatar(String label, String imagePath, VoidCallback onPressed) {
+  return Column(
+    children: [
+      GestureDetector(
+        onTap: onPressed,
+        child: CircleAvatar(
           radius: 40,
           backgroundImage: NetworkImage(imagePath),
         ),
-        SizedBox(height: 8),
-        Text(
-          label,
-          style: TextStyle(color: Colors.black),
-        ),
-      ],
-    );
-  }
-  
+      ),
+      SizedBox(height: 8),
+      Text(
+        label,
+        style: TextStyle(color: Colors.black),
+      ),
+    ],
+  );
+}
+
+
   buildIndicator() {
     return AnimatedSmoothIndicator(activeIndex: activeindex, count: 3,effect: SlideEffect(activeDotColor: Color.fromARGB(255, 31, 97, 152),dotColor: Colors.black12,),);
 
